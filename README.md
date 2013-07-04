@@ -1,4 +1,4 @@
-nxt-dbfl
+nxt-dbfl-display-bluetooth-field-library
 ========
 
 Diese Sammlung von Java/NXC Dateien ist für ein Schul-Projekt erstellt worden.
@@ -27,3 +27,5 @@ flashNXT(linux) --> enthält Firmware sowie kleine Skript zum Flashen eines NXT 
 presentations --> enthält Präsentation zum NXT im .odp Format
 
 bin --> Kompilierte Klassen
+
+license: GNU GPL v3

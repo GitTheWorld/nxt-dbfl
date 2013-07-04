@@ -2,8 +2,10 @@ package nxtPyhtonBridge;
 
 import javax.swing.JOptionPane;
 
+// Feststehende GUI Elemente
 public class GuiUtils {
 
+	// Informationen Abfragen
 	public static String displayInput(String question, String title) {
 
 		while (true) {
@@ -22,6 +24,7 @@ public class GuiUtils {
 		}
 	}
 
+	// Informationen ausgeben
 	public static void displayOutput(String message, String title) {
 		JOptionPane.showMessageDialog(null, message, title,
 				JOptionPane.PLAIN_MESSAGE);
