@@ -1,0 +1,41 @@
+// ---------------> Werte anpassbar <---------------        //
+//          Hier kommt die Konfiguration!!!                 //
+// ---------------> Werte anpassbar <---------------        //
+
+int global_rotatePower=30;
+int global_power=30;
+int global_direction=0; // Steuerung durch Bluetooth (auto)
+
+// physic.nxc
+float physic_pi = 3.14159265; // nicht ändern !!!
+float physic_distanceWeel = 14; // Abstand der Räder in centimeter
+float physic_weelSize = 5.6; // Durchmesser der Räder in centimeter
+float physic_weelCenterToLightSensor = 7.5; // Abstand zwischen den Räder zum Licht Sensor
+
+// sensor.nxc
+int sensor_touchPort = S2;
+int sensor_lightPort = S3;
+
+// motor.nxc
+int motor_port = OUT_AC;
+int motor_site = -1;
+
+// touch.nxc
+int touch_rev = -5; // Zurückweichen vor dem Hinderniss
+int touch_fwd = -10; // Nach dem drehen bis zum Hinderniss zurück
+
+// followLine.nxc
+bool followLine_lastChange=true;
+int followLine_gap=5;
+int followLine_maxDegree=6;
+
+// color.nxc
+int color_around=5; // Wie stark darf das Lichlevel vom vorhergegangenen abweichen um gültig zu bleiben.
+int color_now=0; // 0 = backround, 1 = line, 2 = field/point // Aktuelle Farbe // (auto)
+float color_middle=-1; // (auto)
+
+// bluetooth.nxc --> Mailbox Einstellungen -> Woher kommt was!!!
+bool bluetooth_isBlocked=false; // Falls true dann Hinderniss
+int bluetooth_connection = 0; // Ist Slave
+int bluetooth_mailboxSystem = 0; // Statusmeldungen (in/out)
+int bluetooth_mailboxGotIt = 1; // Empfing etwas (in/out)
