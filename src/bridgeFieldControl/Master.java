@@ -1,15 +1,12 @@
 package bridgeFieldControl;
 
-import java.util.ArrayList;
-
-import nxtPyhtonBridge.GuiUtils;
-import nxtPyhtonBridge.PythonBridge;
+import nxtPyhtonBridge.Tools;
+import nxtPyhtonBridge.Brick;
 
 public class Master {
 
 	public static String pathtoserver;
-	public static ArrayList<OneBrick> bricks;
-
+	
 	public static void main(String[] args) {
 		if (args.length == 0) {
 			return;
@@ -21,8 +18,10 @@ public class Master {
 			}
 		}));
 
-		PythonBridge.path = args[0];
+		Brick.path = args[0];
 
+		try {
+		
 		if (args.length == 2) {
 			GuiInit.askMe(args[1], null);
 		} else if (args.length == 3) {
@@ -31,31 +30,27 @@ public class Master {
 			GuiInit.askMe(null, null);
 		}
 
-		try {
-			for (int i = 0; i < Config.other; i++) {
-				bricks.get(i).startup();
+			for (int i = 0; i < BrickGame.bricks.size(); i++) {
+				BrickGame.bricks.get(i).startup();
 			}
 
 			Gui.init();
 
 			while (true) {
-				for (int i = 0; i < bricks.size(); i++) {
-					if (Gui.finish) {
-						Stop.stopMore();
+				for (int i = 0; i < BrickGame.bricks.size(); i++) {
+					
+					if (Status.stop) {Status.stop();}
+
+					if(!Status.pause){
+					BrickGame.bricks.get(i).action();
 					}
-					if (Gui.pause) {
-						while (Gui.pause) {
-							Thread.sleep(200);
-						}
-					}
-					bricks.get(i).action();
 				}
 			}
 
 		} catch (Exception e) {
 			System.out.println("main: something is wrong!!!!");
 			e.printStackTrace();
-			GuiUtils.displayOutput(
+			Tools.displayOutput(
 					"Etwas stimmt nicht, Programm muss beendet werden!",
 					"Error");
 			System.exit(1);

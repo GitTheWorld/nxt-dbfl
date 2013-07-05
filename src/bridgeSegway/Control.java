@@ -1,14 +1,14 @@
 package bridgeSegway;
 
-import nxtPyhtonBridge.PythonBridge;
+import nxtPyhtonBridge.Brick;
 
-public class Control extends PythonBridge {
+public class Control extends Brick {
 
-	// Need Time to stabilisate
+	// Need Time to stabilized
 	private int sleep = 1000;
 
-	public Control(String thename, String[] error) throws Exception {
-		super(thename, error);
+	public Control(String name) throws Exception {
+		super(name,false);
 	}
 
 	public void moveForward() throws Exception {

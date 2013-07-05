@@ -9,7 +9,7 @@ import java.io.PrintStream;
 
 import javax.imageio.ImageIO;
 
-import nxtPyhtonBridge.PythonBridge;
+import nxtPyhtonBridge.Brick;
 
 public class Writer implements Runnable {
 
@@ -37,7 +37,7 @@ public class Writer implements Runnable {
 				}
 
 				PrintStream out = new PrintStream(new FileOutputStream(
-						PythonBridge.path + "/plays/" + Gui.folder + "/" + out3
+						Brick.path + "/plays/" + Gui.folder + "/" + out3
 								+ ".txt"));
 				out.print(Gui.getText());
 				out.close();
