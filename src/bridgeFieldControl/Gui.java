@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import sun.awt.image.ToolkitImage;
 import nxtPyhtonBridge.ImageUtils;
 import nxtPyhtonBridge.PythonBridge;
 
@@ -235,9 +236,9 @@ class Gui extends JComponent {
 					+ "/icons/blocked.png"));
 			arrow_right = ImageIO.read(new File(PythonBridge.path
 					+ "/icons/arrow.png"));
-			arrow_down = ImageUtils.rotateImage(arrow_right, 90);
-			arrow_left = ImageUtils.rotateImage(arrow_down, 90);
-			arrow_up = ImageUtils.rotateImage(arrow_left, 90);
+			arrow_down = ImageUtils.rotateImage(((ToolkitImage) arrow_right).getBufferedImage(), 90);
+			arrow_left = ImageUtils.rotateImage(((ToolkitImage) arrow_down).getBufferedImage(), 90);
+			arrow_up = ImageUtils.rotateImage(((ToolkitImage) arrow_left).getBufferedImage(), 90);
 			nxt = ImageIO.read(new File(PythonBridge.path + "/icons/nxt.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
