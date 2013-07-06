@@ -1,3 +1,3 @@
 #!/bin/bash
-sudo ./nbc onSegway/main.c -sm- -EF -d -S=usb
+sudo ./nbc onSegway/main.nxc -sm- -EF -d -S=usb
 

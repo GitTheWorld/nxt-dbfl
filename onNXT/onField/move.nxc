@@ -1,0 +1,44 @@
+// Hier werden die Funktionen zum Bewegen anhand der Koordinaten definiert
+bool move_xPlus()
+{
+motor_forward(global_power,physic_fieldMove());
+if(global_direction==1){rotate_left();}
+if(global_direction==2){rotate_opposite();}
+if(global_direction==3){rotate_right();}
+if(global_direction==4){}
+motor_forward(global_power,physic_fieldMove());
+return true;
+}
+
+bool move_xMinus()
+{
+motor_forward(global_power,physic_fieldMove());
+if(global_direction==1){rotate_right();}
+if(global_direction==2){}
+if(global_direction==3){rotate_left();}
+if(global_direction==4){rotate_opposite();}
+motor_forward(global_power,physic_fieldMove());
+return true;
+}
+
+bool move_yPlus()
+{
+motor_forward(global_power,physic_fieldMove());
+if(global_direction==1){rotate_opposite();}
+if(global_direction==2){rotate_right();}
+if(global_direction==3){}
+if(global_direction==4){rotate_left();}
+motor_forward(global_power,physic_fieldMove());
+return true;
+}
+
+bool move_yMinus()
+{
+motor_forward(global_power,physic_fieldMove());
+if(global_direction==1){}
+if(global_direction==2){rotate_left();}
+if(global_direction==3){rotate_opposite();}
+if(global_direction==4){rotate_right();}
+motor_forward(global_power,physic_fieldMove());
+return true;
+}

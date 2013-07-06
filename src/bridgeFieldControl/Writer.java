@@ -48,7 +48,9 @@ public class Writer implements Runnable {
 
 	public void run() {
 		try {
+			System.out.println("main: start write picture at: "+path);
 			ImageIO.write(file, "PNG", new File(path));
+			System.out.println("main: finish write pricture at: "+path);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

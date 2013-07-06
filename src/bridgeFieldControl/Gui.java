@@ -88,7 +88,7 @@ class Gui extends JComponent {
 		Gui.init();
 		
 		while(true){
-		System.out.println("main: this is the GUI test, wait for end...");
+		Thread.sleep(500);
 		if(Status.stop){Status.stop();}
 		}
 		

@@ -37,14 +37,21 @@ public class Master {
 			Gui.init();
 
 			while (true) {
+				
+				if (Status.stop) {Status.stop();}
+				
 				for (int i = 0; i < BrickGame.bricks.size(); i++) {
-					
-					if (Status.stop) {Status.stop();}
-
+				
 					if(!Status.pause){
 					BrickGame.bricks.get(i).action();
 					}
+					
+					if (Status.stop) {Status.stop();}
+					
 				}
+				
+				Thread.sleep(500);
+
 			}
 
 		} catch (Exception e) {

@@ -1,3 +1,0 @@
-You need to install libnxt (libnxt.x86_64 0:0.3-6.fc19 on fedora),
-the script use the command nxt-fwflash.
-On other systems it is probably an another name for the command.

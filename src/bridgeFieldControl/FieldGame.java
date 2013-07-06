@@ -92,7 +92,7 @@ public class FieldGame extends Field {
 			double newPoints = BrickGame.bricks.get(ID).start_points;
 			newPoints = newPoints + points_for_distance(i, ID);
 			newPoints = newPoints + points_for_enemy(i, ID);
-			newPoints = newPoints + punkte_blatt_sammmlung(i, ID);
+			newPoints = newPoints + points_around(i, ID);
 
 			if (newPoints > points) {
 				result = i;
@@ -127,7 +127,7 @@ public class FieldGame extends Field {
 		return points;
 	}
 
-	private static double punkte_blatt_sammmlung(int fieldID, int ID) {
+	private static double points_around(int fieldID, int ID) {
 		double punkte = 0;
 		for (int i = 0; i < listFields.size(); i++) {
 			if (fieldID != i) {
