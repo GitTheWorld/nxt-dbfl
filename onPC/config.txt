@@ -1,0 +1,29 @@
+// Länge der Felder
+50
+// Breite der Felder
+35
+// one_x
+1
+// one_y
+1.5
+// Ausgabe für Auflösung Optimieren
+//x
+1920
+//y
+1080
+// Ab hier AI Konfiguration für den NXT
+//
+// Move Power
+30
+// Rotate Power
+30
+// Als Startguthaben an Punkten bekommt er:
+5000
+// Pro Abstand zu dem NXT werden folgende Punkte Addiert:
+-100
+// Pro Abstand des Zielfeldes zu einem anderen NXT werden die Folgenden Punkte / Anzahl der NXTs-1  Addiert
+50
+// Für jedes andere unbekannte Feld bekommt er:
+10
+// * den folgenden Wert hoch Abstand zu ihm
+0.9

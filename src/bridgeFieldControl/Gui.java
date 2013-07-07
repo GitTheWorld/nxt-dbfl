@@ -1,7 +1,6 @@
 package bridgeFieldControl;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -22,8 +20,7 @@ import nxtPyhtonBridge.Brick;
 import nxtPyhtonBridge.Field;
 import nxtPyhtonBridge.Tools;
 
-@SuppressWarnings("serial")
-class Gui extends JComponent {
+class Gui {
 
 	private static JTextArea infotext;
 	private static BufferedImage around;
@@ -37,8 +34,11 @@ class Gui extends JComponent {
 	private static BufferedImage arrow_up;
 	private static Component comp;
 
-	private static int x_scale = 1000;
-	private static int y_scale = 700;
+	public static double xy_dif;
+	public static int x_max;
+	public static int y_max;
+	public static int x_scale;
+	public static int y_scale;
 
 	public static JFrame Twindow;
 	public static JFrame info;
@@ -51,9 +51,10 @@ class Gui extends JComponent {
 
 	public static void main(String[] args) {
     try {
-		Brick.path = args[0];
-		
+		BrickGame.path = args[0];
+		Master.setConfig();
 		FieldGame.init(10, 8,1,1.2);
+		getScale();
 		Status.ifWin = -1;
 		BrickGame.error = new String[2];
 		BrickGame.error[0] = "fatal";
@@ -98,22 +99,22 @@ class Gui extends JComponent {
 	}
 	}
 	
-	public void paint(Graphics g) {
-		super.paintComponent(g);
-		int one, two, y_plus, x_plus, x, y;
-		x = (int) ((Twindow.getContentPane().getWidth()) / ((Field.size_x) + 2) * 1.428571429);
-		y = (Twindow.getContentPane().getHeight()) / (Field.size_y + 2);
-		if (x < y) {
-			one = x;
-			two = (int) (x * 1.428571429);
+	public static void getScale()
+	{
+		int one_x = (int) (Gui.x_max / (FieldGame.size_x+2));
+		int one_y = (int) (one_x / Gui.xy_dif);
+		
+		int two_y = (int) (Gui.y_max / (FieldGame.size_y+2));
+		int two_x = (int) (two_y * Gui.xy_dif);
+
+		if (one_y*(FieldGame.size_y+2) < Gui.y_max) {
+			Gui.x_scale = one_x;
+			Gui.y_scale = one_y;
 		} else {
-			one = y;
-			two = (int) (y * 1.428571429);
+			Gui.x_scale = two_x;
+			Gui.y_scale = two_y;
 		}
-		x_plus = (two * (Field.size_x + 2) - (Twindow.getContentPane().getWidth())) / 2;
-		y_plus = (one * (Field.size_y + 2) - (Twindow.getContentPane().getHeight())) / 2;
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(display_image, x_plus, y_plus, two, one, this);
+		
 	}
 
 	public static String getPath() {

@@ -14,6 +14,14 @@ import nxtPyhtonBridge.Tools;
 
 public class BrickGame extends Brick {
 
+	public static int d_move_power;
+	public static int d_rotate_power;
+	public static double d_start_points;
+	public static double d_distance_from_me;
+	public static double d_distance_from_enemy;
+	public static double d_distance_to_other_base;
+	public static double d_distance_to_other_multi;
+	
 	// Bluetooth configuration
 	public static int bluetooth_mailboxSystem = 0; // Statusmeldungen (in/out)
 	public static int bluetooth_mailboxGotIt = 1; // Empfing etwas (in/out)
@@ -22,13 +30,13 @@ public class BrickGame extends Brick {
 	public static ArrayList<BrickGame> bricks;
 	
 	// Ai Konfiguration
-	public double one_x = 1;
-	public double one_y = 1.2;
-	public double start_points = 0;
-	public double distance_from_me = -100;
-	public double distance_from_enemy = 50;
-	public double distance_to_other_base = 10;
-	public double distance_to_other_multi = 0.9;
+	public int move_power;
+	public int rotate_power;
+	public double start_points;
+	public double distance_from_me;
+	public double distance_from_enemy;
+	public double distance_to_other_base;
+	public double distance_to_other_multi;
 	// AI Konfiguration END
 
 	// Individual files
@@ -86,24 +94,18 @@ public class BrickGame extends Brick {
 
 				try {
 					if (i == 0) {
-						one_x = Double.parseDouble(zeile);
-					}
-					if (i == 1) {
-						one_y = Double.parseDouble(zeile);
-					}
-					if (i == 2) {
 						start_points = Double.parseDouble(zeile);
 					}
-					if (i == 3) {
+					if (i == 1) {
 						distance_from_me = Double.parseDouble(zeile);
 					}
-					if (i == 4) {
+					if (i == 2) {
 						distance_from_enemy = Double.parseDouble(zeile);
 					}
-					if (i == 5) {
+					if (i == 3) {
 						distance_to_other_base = Double.parseDouble(zeile);
 					}
-					if (i == 6) {
+					if (i == 4) {
 						distance_to_other_multi = Double.parseDouble(zeile);
 					}
 					System.out.println(name + ": " + i + "-"
@@ -115,40 +117,11 @@ public class BrickGame extends Brick {
 			in.close();
 		} catch (IOException e) {
 			System.out.println(name + ": load backup configuration because error");
-			BufferedReader in = new BufferedReader(new FileReader(BrickGame.path + "/AI.txt"));
-			String zeile = null;
-			int i = 0;
-			while ((zeile = in.readLine()) != null) {
-
-				try {
-					if (i == 0) {
-						one_x = Double.parseDouble(zeile);
-					}
-					if (i == 1) {
-						one_y = Double.parseDouble(zeile);
-					}
-					if (i == 2) {
-						start_points = Double.parseDouble(zeile);
-					}
-					if (i == 3) {
-						distance_from_me = Double.parseDouble(zeile);
-					}
-					if (i == 4) {
-						distance_from_enemy = Double.parseDouble(zeile);
-					}
-					if (i == 5) {
-						distance_to_other_base = Double.parseDouble(zeile);
-					}
-					if (i == 6) {
-						distance_to_other_multi = Double.parseDouble(zeile);
-					}
-					i++;
-					System.out.println(name + ": " + i + "-"
-							+ Double.parseDouble(zeile));
-				} catch (NumberFormatException ex) {
-				}
-			}
-			in.close();
+						start_points = d_start_points;
+						distance_from_me = d_distance_from_me;
+						distance_from_enemy = d_distance_from_enemy;
+						distance_to_other_base = d_distance_to_other_base;
+						distance_to_other_multi = d_distance_to_other_multi;
 		}
 
 	}

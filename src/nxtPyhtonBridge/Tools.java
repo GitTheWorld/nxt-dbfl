@@ -3,7 +3,10 @@ package nxtPyhtonBridge;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 // Feststehende GUI Elemente
@@ -46,58 +49,75 @@ public class Tools {
 		int[] output = new int[2];
 
 		try {
-			output[1]=Integer.parseInt(input);
-			output[0]=1;
+			output[1] = Integer.parseInt(input);
+			output[0] = 1;
 			return output;
 		} catch (NumberFormatException ex) {
-			output[0]=0;
+			output[0] = 0;
 			return output;
 		}
 	}
-	
+
 	public static double[] convertToDouble(String input) {
 		double[] output = new double[2];
 
 		try {
-			output[1]=Double.parseDouble(input);
-			output[0]=1;
+			output[1] = Double.parseDouble(input);
+			output[0] = 1;
 			return output;
 		} catch (NumberFormatException ex) {
-			output[0]=0;
+			output[0] = 0;
 			return output;
 		}
 	}
-	
+
 	public static int[] convertToInt(String[] input) {
-	int[] output = new int[input.length];
-	
-	try {
-	for(int i=0;i<input.length;i++)
-	{
-		output[i]=Integer.parseInt(input[i]);
+		int[] output = new int[input.length];
+
+		try {
+			for (int i = 0; i < input.length; i++) {
+				output[i] = Integer.parseInt(input[i]);
+			}
+		} catch (NumberFormatException ex) {
+			return new int[0];
+		}
+
+		return output;
 	}
-	} catch (NumberFormatException ex) {
-		return new int[0];
-	}
-	
-	return output;
-	}
-	
+
 	public static double[] convertToDoubles(String[] input) {
-	double[] output = new double[input.length];
-	
-	try {
-	for(int i=0;i<input.length;i++)
-	{
-		output[i]=Double.parseDouble(input[i]);
+		double[] output = new double[input.length];
+
+		try {
+			for (int i = 0; i < input.length; i++) {
+				output[i] = Double.parseDouble(input[i]);
+			}
+		} catch (NumberFormatException ex) {
+			return new double[0];
+		}
+
+		return output;
 	}
-	} catch (NumberFormatException ex) {
-		return new double[0];
+
+	public static ArrayList<Double> getDoubleConfig(String path) {
+		System.out.println("main: try to get: " + path);
+		ArrayList<Double> out = new ArrayList<Double>();
+		BufferedReader in;
+		String zeile;
+		try {
+			in = new BufferedReader(new FileReader(path));
+
+			while ((zeile = in.readLine()) != null) {
+				try {
+					out.add(Double.parseDouble(zeile));
+				} catch (NumberFormatException ex) {}
+			}
+			in.close();
+		} catch (IOException e) {
+			return out;
+		}
+
+		return out;
 	}
-	
-	return output;
-	}
-	
-	
 
 }

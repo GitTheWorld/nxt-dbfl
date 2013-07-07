@@ -25,7 +25,8 @@ public class FieldGame extends Field {
 	}
 
 	public static boolean isFree(int id, int x, int y) {
-		if (!inField(x, y) || !isFreeFromBricks(id, x, y) || theField[x][y] == 2) {
+		if (!inField(x, y) || !isFreeFromBricks(id, x, y)
+				|| theField[x][y] == 2) {
 			return false;
 		}
 		return true;
