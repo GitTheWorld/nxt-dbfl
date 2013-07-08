@@ -1,29 +1,60 @@
-// Länge der Felder
+//************************//
+// Standart-Konfiguration //
+//************************//
+
+// Länge eines Feldes in cm (x)
 50
-// Breite der Felder
+// Breite eines Feldes in cm (y)
 35
-// one_x
-1
-// one_y
+// Wie lange braucht x
 1.5
+// zu y
+1
 // Ausgabe für Auflösung Optimieren
 //x
 1920
 //y
 1080
-// Ab hier AI Konfiguration für den NXT
-//
-// Move Power
+
+//******************//
+// AI-KONFIGURATION //
+//******************//
+
+// Bitte die Zahlenwerte anpassen um die Konfiguration
+// zu optimieren (Kommazahlen bitte mit . und nicht mit ,)
+
+
+//********************************//
+// Wegfindung und Geschwindigkeit //
+//********************************//
+
+// Motorgeschwindigkeit (0-100)
 30
-// Rotate Power
+// Rotationsgeschwindigkeit (0-100)
 30
-// Als Startguthaben an Punkten bekommt er:
-5000
-// Pro Abstand zu dem NXT werden folgende Punkte Addiert:
+
+// Eine Auslenkung zum wiederfinden des Weges in Grad
+5
+// Wie oft diese bevor Richtungswechsel
+6
+// Nach einem erfolglosen Versuch wie viele cm geradeaus um den Weg wiederzufinden
+2
+
+//*****************************//
+// Zeilfindung durch Bewertung //
+//*****************************//
+
+// Die folgenden Gleichungen werden bei jedem unbekannten Feld ausgeführt
+// und addiert Ergeben sie die Bewertung dieses Feldes.
+// Das Feld mit den meisten Punkten wird angesteuert.
+
+// Abstand zu mir MAL 
 -100
-// Pro Abstand des Zielfeldes zu einem anderen NXT werden die Folgenden Punkte / Anzahl der NXTs-1  Addiert
+// Abstand zu allen Gegnern im Schnitt MAL
 50
-// Für jedes andere unbekannte Feld bekommt er:
+
+// Umgebene Unbekannte Felder bekommen
 10
-// * den folgenden Wert hoch Abstand zu ihm
+// MAL
 0.9
+// HOCH den Abstand von diesem zum Feld selbst

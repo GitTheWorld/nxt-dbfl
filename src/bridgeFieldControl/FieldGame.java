@@ -6,11 +6,16 @@ public class FieldGame extends Field {
 
 	public static int unknown; // Felder die noch nicht geändert wurden
 	public static int objects; // Anzahl der gefunden Hindernisse
-
+	
+	
+	public static void init_sub(int new_size_x, int new_size_y) {
+		init(new_size_x,new_size_y);
+		unknown = FieldGame.size_x * FieldGame.size_y;
+	}
+	
 	public FieldGame(int x, int y, int direction, double distance,
 			int[] listID, int[] stopOnID) {
 		super(x, y, direction, distance, listID, stopOnID);
-		unknown = Field.size_x * Field.size_y;
 	}
 
 	public static boolean isFreeFromBricks(int id, int x, int y) {
@@ -71,6 +76,13 @@ public class FieldGame extends Field {
 		calcWays(BrickGame.bricks.get(ID).pos_x,
 				BrickGame.bricks.get(ID).pos_y, listID, stopOnID);
 
+		int[] my = new int[3];
+		my[0]=BrickGame.bricks.get(ID).pos_x;
+		my[1]=BrickGame.bricks.get(ID).pos_y;
+		my[2]=0;
+		
+		listFields.add(my);		
+		
 		int fieldID = getBest(ID);
 
 		int[] element = new int[2];
@@ -88,14 +100,18 @@ public class FieldGame extends Field {
 
 		int result = listFields.size() - 1;
 		double points = 0;
-
+		boolean start=false;
+		
 		for (int i = 0; i < listFields.size() - 1; i++) {
-			double newPoints = BrickGame.bricks.get(ID).start_points;
+			
+
+			double newPoints = 0;
 			newPoints = newPoints + points_for_distance(i, ID);
 			newPoints = newPoints + points_for_enemy(i, ID);
 			newPoints = newPoints + points_around(i, ID);
 
-			if (newPoints > points) {
+			if (newPoints > points || !start) {
+				start = true;
 				result = i;
 				points = newPoints;
 			}
@@ -110,22 +126,22 @@ public class FieldGame extends Field {
 	}
 
 	public static double points_for_enemy(int fieldID, int ID) {
-
+		if(BrickGame.bricks.size()==1){return 0;}
+		
 		double points = 0;
 
 		for (int i = 0; i < BrickGame.bricks.size(); i++) {
 			if (i != ID) {
 				points = points
-						+ (BrickGame.bricks.get(ID).distance_from_enemy / (BrickGame.bricks
-								.size() - 1))
+						+ BrickGame.bricks.get(ID).distance_from_enemy
 						* getManhattanDistance(listFields.get(fieldID)[0],
 								listFields.get(fieldID)[1],
 								BrickGame.bricks.get(i).pos_x,
 								BrickGame.bricks.get(i).pos_y);
 			}
 		}
-
-		return points;
+		
+		return points/(BrickGame.bricks.size()-1);
 	}
 
 	private static double points_around(int fieldID, int ID) {

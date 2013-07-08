@@ -16,12 +16,9 @@ public class Field {
 	public static ArrayList<int[]> listFields;
 	public static Field[][] theWayField;
 
-	public static void init(int new_size_x, int new_size_y, double new_one_x,
-			double new_one_y) {
+	public static void init(int new_size_x, int new_size_y) {
 		size_x = new_size_x;
 		size_y = new_size_y;
-		one_x = new_one_x;
-		one_y = new_one_y;
 		theField = new int[Field.size_x][Field.size_y];
 	}
 
@@ -35,11 +32,6 @@ public class Field {
 			x = x + way[0];
 			y = y + way[1];
 		}
-
-		if (direction != 0) {
-			direction = additionDirection(direction, 2);
-		}
-
 		return direction;
 	}
 

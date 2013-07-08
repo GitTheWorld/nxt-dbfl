@@ -31,7 +31,17 @@ bluetooth_sendInt(1,bluetooth_connection,bluetooth_mailboxSystem,false);
 void bluetooth_init()
 {
 display_bluetoothConfiguration();
-rotate_change(bluetooth_receiveInt(bluetooth_connection,bluetooth_mailboxSystem,false),true);
+rotate_change(bluetooth_receiveInt(bluetooth_connection,bluetooth_mailboxSystem,true),true);
+
+global_movePower=bluetooth_receiveInt(bluetooth_connection,bluetooth_mailboxSystem,true);
+
+global_rotatePower=bluetooth_receiveInt(bluetooth_connection,bluetooth_mailboxSystem,true);
+
+followLine_gap=bluetooth_receiveInt(bluetooth_connection,bluetooth_mailboxSystem,true);
+
+followLine_maxDegree=bluetooth_receiveInt(bluetooth_connection,bluetooth_mailboxSystem,true);
+
+followLine_forward=bluetooth_receiveInt(bluetooth_connection,bluetooth_mailboxSystem,true);
 }
 
 void bluetooth_run()

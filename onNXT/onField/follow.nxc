@@ -46,7 +46,7 @@ if(!allRight){motor_rotate(global_rotatePower,physic_rotate(followLine_gap*follo
 }
 
 if(allRight){
-motor_forwardWithoutEnd(global_power);
-}else{motor_forward(global_power,physic_move(1));}
+motor_forwardWithoutEnd(global_movePower);
+}else{motor_forward(global_movePower,physic_move(followLine_forward));}
 
 }

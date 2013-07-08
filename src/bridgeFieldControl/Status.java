@@ -24,7 +24,7 @@ public class Status {
 
 		if ((FieldGame.unknown == 0 && ifWin == -1) || (FieldGame.objects == ifWin)) {
 	    System.out.println("main: game is finish");
-		Writer.write();
+		Gui.writeStatus();
 		win = true;
 		return true;
 		}
@@ -37,10 +37,8 @@ public class Status {
 			System.out.println("main: stop the program");
 
 			// eventually write the statistics
-			Writer.write();
-
+			if(!win){Gui.writeStatus();}
 			System.out.println("main: statistics written");
-
 			
 			// Wait for the images to complete
 			while (Gui.pro.size() != 0) {

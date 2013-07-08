@@ -7,7 +7,10 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -19,6 +22,7 @@ import javax.swing.JTextArea;
 import nxtPyhtonBridge.Brick;
 import nxtPyhtonBridge.Field;
 import nxtPyhtonBridge.Tools;
+import nxtPyhtonBridge.ImageWriter;
 
 class Gui {
 
@@ -34,11 +38,11 @@ class Gui {
 	private static BufferedImage arrow_up;
 	private static Component comp;
 
-	public static double xy_dif;
-	public static int x_max;
-	public static int y_max;
-	public static int x_scale;
-	public static int y_scale;
+	public static double dif_xy;
+	public static int max_x;
+	public static int max_y;
+	public static int scale_x;
+	public static int scale_y;
 
 	public static JFrame Twindow;
 	public static JFrame info;
@@ -53,8 +57,8 @@ class Gui {
     try {
 		BrickGame.path = args[0];
 		Master.setConfig();
-		FieldGame.init(10, 8,1,1.2);
-		getScale();
+		FieldGame.init_sub(10, 8);
+				
 		Status.ifWin = -1;
 		BrickGame.error = new String[2];
 		BrickGame.error[0] = "fatal";
@@ -71,18 +75,27 @@ class Gui {
 		coords[0][0]=1;
 		coords[0][1]=1;
 		coords[0][2]=1;
+		FieldGame.setField(1, 1, 1, -1);
 
+		
 		coords[1][0]=2;
 		coords[1][1]=4;
 		coords[1][2]=2;
+		FieldGame.setField(1, 2, 4, -1);
 
 		coords[2][0]=5;
 		coords[2][1]=3;
 		coords[2][2]=3;
-		
+		FieldGame.setField(1, 5, 3, -1);
+
 		coords[3][0]=1;
 		coords[3][1]=5;
 		coords[3][2]=4;
+		FieldGame.setField(1, 1, 5, -1);
+
+		FieldGame.setField(2, 2, 2, -1);
+		FieldGame.setField(1, 1, 2, -1);
+
 		
 		BrickGame.init(names, coords,true);
 		
@@ -99,22 +112,31 @@ class Gui {
 	}
 	}
 	
+	
+	public static void writeStatus() throws FileNotFoundException {
+				String out3 = new Integer(Gui.count).toString();
+				if (Gui.count < 10) {
+					out3 = "0" + out3;
+				}
+				if (Gui.count < 100) {
+					out3 = "0" + out3;
+				}
+				if (Gui.count < 1000) {
+					out3 = "0" + out3;
+				}
+
+				PrintStream out = new PrintStream(new FileOutputStream(
+						Brick.path + "/plays/" + Gui.folder + "/" + out3
+								+ ".txt"));
+				out.print(Gui.getText());
+				out.close();
+	}
+	
 	public static void getScale()
 	{
-		int one_x = (int) (Gui.x_max / (FieldGame.size_x+2));
-		int one_y = (int) (one_x / Gui.xy_dif);
-		
-		int two_y = (int) (Gui.y_max / (FieldGame.size_y+2));
-		int two_x = (int) (two_y * Gui.xy_dif);
-
-		if (one_y*(FieldGame.size_y+2) < Gui.y_max) {
-			Gui.x_scale = one_x;
-			Gui.y_scale = one_y;
-		} else {
-			Gui.x_scale = two_x;
-			Gui.y_scale = two_y;
-		}
-		
+		int[] out = Tools.getOptiScaleForField(FieldGame.size_x+2, FieldGame.size_y+2, max_x, max_y, dif_xy);
+			Gui.scale_x = out[0];
+			Gui.scale_y = out[1];
 	}
 
 	public static String getPath() {
@@ -136,7 +158,7 @@ class Gui {
 	public static void genImage() throws IOException {
 
 		BufferedImage awtImage = new BufferedImage((Field.size_x + 2)
-				* x_scale, (Field.size_y + 2) * y_scale,
+				* scale_x, (Field.size_y + 2) * scale_y,
 				BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) awtImage.getGraphics();
 
@@ -151,10 +173,7 @@ class Gui {
 			gui.remove(0);
 		}
 
-		Runnable r = new Writer(awtImage, getPath());
-		Thread t = new Thread(r);
-		t.start();
-		pro.add(t);
+		pro.add(ImageWriter.init(awtImage, getPath()));
 		display_image = awtImage;
 	}
 
@@ -252,17 +271,20 @@ class Gui {
 		});
 
 		try {
-			System.out.println(Brick.path);
+			getScale();
+			
+			around = Tools.scaleImage(ImageIO.read(new File(Brick.path+ "/icons/around.png")), scale_x,scale_y);
+			unknown = Tools.scaleImage(ImageIO.read(new File(Brick.path+ "/icons/unknown.png")), scale_x,scale_y);
+			free = Tools.scaleImage(ImageIO.read(new File(Brick.path+ "/icons/free.png")), scale_x,scale_y);
+			blocked = Tools.scaleImage(ImageIO.read(new File(Brick.path+ "/icons/blocked.png")), scale_x,scale_y);
+			arrow_right = Tools.scaleImage(ImageIO.read(new File(Brick.path+ "/icons/arrow.png")), scale_y,scale_y);
 
-			around = ImageIO.read(new File(Brick.path+ "/icons/around.png"));
-			unknown = ImageIO.read(new File(Brick.path+ "/icons/unknown.png"));
-			free = ImageIO.read(new File(Brick.path + "/icons/free.png"));
-			blocked = ImageIO.read(new File(Brick.path+"/icons/blocked.png"));
-			arrow_right = ImageIO.read(new File(Brick.path+"/icons/arrow.png"));
 			arrow_down = Tools.rotateImage(arrow_right, 90);
 			arrow_left = Tools.rotateImage(arrow_down, 90);
 			arrow_up = Tools.rotateImage(arrow_left, 90);
-			nxt = ImageIO.read(new File(Brick.path + "/icons/nxt.png"));
+			
+			nxt = Tools.scaleImage(ImageIO.read(new File(Brick.path+ "/icons/nxt.png")), scale_y,scale_y);
+
 		} catch (IOException e) {e.printStackTrace();}
 		update();
 	}
@@ -317,10 +339,10 @@ class Gui {
 			for (int p = 0; p < (Field.size_y + 2); p++) {
 				int[] neu = new int[5];
 				neu[0] = getRightImageNumber(i, p);
-				neu[1] = i * x_scale;
-				neu[2] = (Field.size_y + 1) * y_scale - y_scale * p;
-				neu[3] = x_scale;
-				neu[4] = y_scale;
+				neu[1] = i * scale_x;
+				neu[2] = (Field.size_y + 1) * scale_y - scale_y * p;
+				neu[3] = scale_x;
+				neu[4] = scale_y;
 				gui.add(neu);
 			}
 		}
@@ -329,50 +351,50 @@ class Gui {
 
 			int[] neu1 = new int[5];
 			neu1[0] = -i;
-			neu1[1] = (BrickGame.bricks.get(i).pos_x + 1) * x_scale + x_scale / 7;
-			neu1[2] = (Field.size_y + 1) * y_scale - y_scale
+			neu1[1] = (BrickGame.bricks.get(i).pos_x + 1) * scale_x + scale_x / 7;
+			neu1[2] = (Field.size_y + 1) * scale_y - scale_y
 					* (BrickGame.bricks.get(i).pos_y + 1);
-			neu1[3] = y_scale;
-			neu1[4] = y_scale;
+			neu1[3] = scale_y;
+			neu1[4] = scale_y;
 			gui.add(neu1);
 
 			if (BrickGame.bricks.get(i).direction == 1) {
 				int[] neu3 = new int[5];
 				neu3[0] = 6;
-				neu3[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * x_scale
-						+ x_scale / 2 - y_scale / 4);
-				neu3[2] = (Field.size_y + 2) * y_scale - y_scale
+				neu3[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * scale_x
+						+ scale_x / 2 - scale_y / 4);
+				neu3[2] = (Field.size_y + 2) * scale_y - scale_y
 						* (BrickGame.bricks.get(i).pos_y + 1);
-				neu3[3] = y_scale / 2;
-				neu3[4] = y_scale / 2;
+				neu3[3] = scale_y / 2;
+				neu3[4] = scale_y / 2;
 				gui.add(neu3);
 			} else if (BrickGame.bricks.get(i).direction == 2) {
 				int[] neu4 = new int[5];
 				neu4[0] = 7;
-				neu4[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * x_scale - y_scale / 2);
-				neu4[2] = (Field.size_y + 1) * y_scale - y_scale
-						* (BrickGame.bricks.get(i).pos_y + 1) + y_scale / 4;
-				neu4[3] = y_scale / 2;
-				neu4[4] = y_scale / 2;
+				neu4[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * scale_x - scale_y / 2);
+				neu4[2] = (Field.size_y + 1) * scale_y - scale_y
+						* (BrickGame.bricks.get(i).pos_y + 1) + scale_y / 4;
+				neu4[3] = scale_y / 2;
+				neu4[4] = scale_y / 2;
 				gui.add(neu4);
 			} else if (BrickGame.bricks.get(i).direction == 3) {
 				int[] neu5 = new int[5];
 				neu5[0] = 8;
-				neu5[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * x_scale
-						+ x_scale / 2 - y_scale / 4);
-				neu5[2] = (Field.size_y) * y_scale - y_scale
-						* (BrickGame.bricks.get(i).pos_y + 1) + y_scale / 2;
-				neu5[3] = y_scale / 2;
-				neu5[4] = y_scale / 2;
+				neu5[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * scale_x
+						+ scale_x / 2 - scale_y / 4);
+				neu5[2] = (Field.size_y) * scale_y - scale_y
+						* (BrickGame.bricks.get(i).pos_y + 1) + scale_y / 2;
+				neu5[3] = scale_y / 2;
+				neu5[4] = scale_y / 2;
 				gui.add(neu5);
 			} else if (BrickGame.bricks.get(i).direction == 4) {
 				int[] neu2 = new int[5];
 				neu2[0] = 5;
-				neu2[1] = (BrickGame.bricks.get(i).pos_x + 2) * x_scale;
-				neu2[2] = (Field.size_y + 1) * y_scale - y_scale
-						* (BrickGame.bricks.get(i).pos_y + 1) + y_scale / 4;
-				neu2[3] = y_scale / 2;
-				neu2[4] = y_scale / 2;
+				neu2[1] = (BrickGame.bricks.get(i).pos_x + 2) * scale_x;
+				neu2[2] = (Field.size_y + 1) * scale_y - scale_y
+						* (BrickGame.bricks.get(i).pos_y + 1) + scale_y / 4;
+				neu2[3] = scale_y / 2;
+				neu2[4] = scale_y / 2;
 				gui.add(neu2);
 			}
 

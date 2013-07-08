@@ -17,14 +17,14 @@ class Component extends JComponent {
 
 		int one, two, y_plus, x_plus, x, y;
 
-		x = (int) (this.getWidth() / ((Field.size_x + 2) * Gui.xy_dif));
+		x = (int) (this.getWidth() / ((Field.size_x + 2) * Gui.dif_xy));
 		y = this.getHeight() / (Field.size_y + 2);
 		if (x < y) {
 			one = x;
-			two = (int) (x * Gui.xy_dif);
+			two = (int) (x * Gui.dif_xy);
 		} else {
 			one = y;
-			two = (int) (y * Gui.xy_dif);
+			two = (int) (y * Gui.dif_xy);
 		}
 		x_plus = (two * (Field.size_x + 2) - this.getWidth()) / 2;
 		y_plus = (one * (Field.size_y + 2) - this.getHeight()) / 2;

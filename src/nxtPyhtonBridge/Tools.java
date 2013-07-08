@@ -1,12 +1,14 @@
 package nxtPyhtonBridge;
 
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 // Feststehende GUI Elemente
@@ -110,13 +112,48 @@ public class Tools {
 			while ((zeile = in.readLine()) != null) {
 				try {
 					out.add(Double.parseDouble(zeile));
-				} catch (NumberFormatException ex) {}
+				} catch (NumberFormatException ex) {
+				}
 			}
 			in.close();
 		} catch (IOException e) {
+			System.out.println("main: fail");
 			return out;
 		}
+		System.out.println("main: success");
 
+		return out;
+	}
+
+	public static int[] getOptiScaleForField(int size_x, int size_y, int max_x,
+			int max_y, double dif_xy) {
+		int one_x = max_x / size_x;
+		int one_y = (int) (one_x / dif_xy);
+
+		int two_y = max_y / size_y;
+		int two_x = (int) (two_y * dif_xy);
+
+		int[] out = new int[2];
+
+		if (one_y * size_y < max_y) {
+			out[0] = one_x;
+			out[1] = one_y;
+		} else {
+			out[0] = two_x;
+			out[1] = two_y;
+		}
+		return out;
+	}
+
+	public static BufferedImage scaleImage(BufferedImage image, int new_x,
+			int new_y) {
+		BufferedImage out = new BufferedImage(new_x, new_y, image.getType());
+		Graphics2D g = out.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.drawImage(image, 0, 0, new_x, new_y, 0, 0, image.getWidth(),
+				image.getHeight(), null);
+		g.dispose();
 		return out;
 	}
 

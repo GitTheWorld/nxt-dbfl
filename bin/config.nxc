@@ -3,7 +3,7 @@
 // ---------------> Werte anpassbar <---------------        //
 
 int global_rotatePower=30;
-int global_power=30;
+int global_movePower=30;
 int global_direction=0; // Steuerung durch Bluetooth (auto)
 
 // physic.nxc
@@ -28,9 +28,10 @@ int touch_fwd = -10; // Nach dem drehen bis zum Hinderniss zurück
 bool followLine_lastChange=true;
 int followLine_gap=5;
 int followLine_maxDegree=6;
+int followLine_forward=2;
 
 // color.nxc
-int color_around=5; // Wie stark darf das Lichlevel vom vorhergegangenen abweichen um gültig zu bleiben.
+int color_around=8; // Wie stark darf das Lichlevel vom vorhergegangenen abweichen um gültig zu bleiben.
 int color_now=0; // 0 = backround, 1 = line, 2 = field/point // Aktuelle Farbe // (auto)
 float color_middle=-1; // (auto)
 

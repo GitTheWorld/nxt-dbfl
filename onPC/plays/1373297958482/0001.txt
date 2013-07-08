@@ -1,0 +1,24 @@
+Siegbedingung: 
+Alle Felder aufdecken
+Verbleibend: -6/80
+
+Name: Test1
+Position: 1 1 1
+Bewegungen: 0
+Hindernisse Entdeckt: 0
+
+Name: Test2
+Position: 2 4 2
+Bewegungen: 0
+Hindernisse Entdeckt: 0
+
+Name: Test3
+Position: 5 3 3
+Bewegungen: 0
+Hindernisse Entdeckt: 0
+
+Name: Test4
+Position: 1 5 4
+Bewegungen: 0
+Hindernisse Entdeckt: 0
+

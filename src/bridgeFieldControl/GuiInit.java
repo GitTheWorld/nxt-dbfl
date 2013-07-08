@@ -23,7 +23,7 @@ public class GuiInit {
 
 		}
 
-		FieldGame.init(result[0], result[1],1,1.2);
+		FieldGame.init_sub(result[0], result[1]);
 		Status.ifWin = result[2];
 		BrickGame.error = new String[2];
 		BrickGame.error[0] = "fatal";
@@ -62,11 +62,11 @@ public class GuiInit {
 
 		for (int i = 0; i < members2.length/4; i++) {
 		coords[i][0] = result[i*4+1];
-	    coords[i][0] = result[i*4+2];
-		coords[i][0] = result[i*4+3];
+	    coords[i][1] = result[i*4+2];
+		coords[i][2] = result[i*4+3];
 		}
 		BrickGame.init(names, coords,false);
-		System.out.println("main: Init abgeschlossen, Spieler sind verbunden.");
+		System.out.println("main: init finish");
 
 	}
 }
