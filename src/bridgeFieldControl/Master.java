@@ -6,26 +6,17 @@ import nxtPyhtonBridge.Tools;
 
 public class Master {
 
-	public static String pathtoserver;
-
+	public static boolean needRestart=false;
+	
 	public static void main(String[] args) throws InterruptedException {
 		if (args.length == 0) {
 			return;
 		}
-
 		BrickGame.path = args[0];
 
-		setConfig();
-
 		try {
-			if (args.length == 2) {
-				GuiInit.askMe(args[1], null);
-			} else if (args.length == 3) {
-				GuiInit.askMe(args[1], args[2]);
-			} else {
-				GuiInit.askMe(null, null);
-			}
-
+			setConfig();
+			GuiInit.askMe(false);
 			Gui.getScale();
 
 			for (int i = 0; i < BrickGame.bricks.size(); i++) {
@@ -39,6 +30,8 @@ public class Master {
 				if (Status.stop) {
 					Status.stop();
 				}
+				if(needRestart){reInit();}
+
 
 				for (int i = 0; i < BrickGame.bricks.size(); i++) {
 
@@ -49,11 +42,11 @@ public class Master {
 					if (Status.stop) {
 						Status.stop();
 					}
+					if(needRestart){reInit();}
 
+					
 				}
-
 				Thread.sleep(500);
-
 			}
 
 		} catch (Exception e) {
@@ -64,6 +57,14 @@ public class Master {
 					"Error");
 			System.exit(1);
 		}
+	}
+	
+	public static void reInit() throws Exception
+	{
+		GuiInit.askMe(true);
+		Status.resetAll();
+		Gui.update();
+		needRestart=false;
 	}
 
 	public static void setConfig() throws InterruptedException {

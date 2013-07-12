@@ -1,0 +1,34 @@
+Siegbedingung: 
+Alle Felder aufdecken
+Verbleibend: 9/64
+
+Name: Bob
+Position: 6 1 0
+Bewegungen: 177
+Hindernisse Entdeckt: 3
+
+Name: Marcel
+Position: 0 5 0
+Bewegungen: 65
+Hindernisse Entdeckt: 0
+
+Name: Joni
+Position: 3 7 0
+Bewegungen: 169
+Hindernisse Entdeckt: 3
+
+Name: Willi
+Position: 3 0 0
+Bewegungen: 51
+Hindernisse Entdeckt: 1
+
+Name: Robert
+Position: 1 1 0
+Bewegungen: 214
+Hindernisse Entdeckt: 1
+
+Name: Caro
+Position: 7 4 0
+Bewegungen: 52
+Hindernisse Entdeckt: 0
+

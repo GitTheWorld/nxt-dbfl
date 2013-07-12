@@ -52,6 +52,7 @@ class Gui {
 	public static ArrayList<Thread> pro;
 	public static Image display_image;
 	public static JButton stopButton;
+	public static JButton resetButton;
 
 	public static void main(String[] args) {
     try {
@@ -242,16 +243,27 @@ class Gui {
 
 		JPanel topPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
+		JPanel resPanel = new JPanel();
 
 		topPanel.setLayout(new BorderLayout());
 		info.getContentPane().add(topPanel);
 		info.getContentPane().add(btnPanel);
-		topPanel.add(infotext, BorderLayout.CENTER);
+		info.getContentPane().add(resPanel);
+
+		
 		stopButton = new JButton("Fortsetzen");
 		stopButton.addActionListener(new TheButton());
+		resetButton = new JButton("Reset");
+		resetButton.addActionListener(new TheButton());
 		btnPanel.add(stopButton);
-		info.getContentPane().add(topPanel, BorderLayout.CENTER);
-		info.getContentPane().add(btnPanel, BorderLayout.SOUTH);
+		resPanel.add(resetButton);
+		topPanel.add(infotext);
+
+
+		info.getContentPane().add(topPanel, BorderLayout.NORTH);
+		info.getContentPane().add(btnPanel, BorderLayout.EAST);
+		info.getContentPane().add(resPanel, BorderLayout.WEST);
+
 		info.setVisible(true);
 
 		info.addComponentListener(new ComponentAdapter() {

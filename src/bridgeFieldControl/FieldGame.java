@@ -6,16 +6,10 @@ public class FieldGame extends Field {
 
 	public static int unknown; // Felder die noch nicht geändert wurden
 	public static int objects; // Anzahl der gefunden Hindernisse
-	
-	
+
 	public static void init_sub(int new_size_x, int new_size_y) {
-		init(new_size_x,new_size_y);
+		init(new_size_x, new_size_y);
 		unknown = FieldGame.size_x * FieldGame.size_y;
-	}
-	
-	public FieldGame(int x, int y, int direction, double distance,
-			int[] listID, int[] stopOnID) {
-		super(x, y, direction, distance, listID, stopOnID);
 	}
 
 	public static boolean isFreeFromBricks(int id, int x, int y) {
@@ -30,6 +24,10 @@ public class FieldGame extends Field {
 	}
 
 	public static boolean isFree(int id, int x, int y) {
+		
+		System.out
+		.println("main: there are rgrgrgr unknown fields");
+		
 		if (!inField(x, y) || !isFreeFromBricks(id, x, y)
 				|| theField[x][y] == 2) {
 			return false;
@@ -77,12 +75,12 @@ public class FieldGame extends Field {
 				BrickGame.bricks.get(ID).pos_y, listID, stopOnID);
 
 		int[] my = new int[3];
-		my[0]=BrickGame.bricks.get(ID).pos_x;
-		my[1]=BrickGame.bricks.get(ID).pos_y;
-		my[2]=0;
-		
-		listFields.add(my);		
-		
+		my[0] = BrickGame.bricks.get(ID).pos_x;
+		my[1] = BrickGame.bricks.get(ID).pos_y;
+		my[2] = 0;
+
+		listFields.add(my);
+
 		int fieldID = getBest(ID);
 
 		int[] element = new int[2];
@@ -100,10 +98,9 @@ public class FieldGame extends Field {
 
 		int result = listFields.size() - 1;
 		double points = 0;
-		boolean start=false;
-		
+		boolean start = false;
+
 		for (int i = 0; i < listFields.size() - 1; i++) {
-			
 
 			double newPoints = 0;
 			newPoints = newPoints + points_for_distance(i, ID);
@@ -126,8 +123,10 @@ public class FieldGame extends Field {
 	}
 
 	public static double points_for_enemy(int fieldID, int ID) {
-		if(BrickGame.bricks.size()==1){return 0;}
-		
+		if (BrickGame.bricks.size() == 1) {
+			return 0;
+		}
+
 		double points = 0;
 
 		for (int i = 0; i < BrickGame.bricks.size(); i++) {
@@ -140,8 +139,8 @@ public class FieldGame extends Field {
 								BrickGame.bricks.get(i).pos_y);
 			}
 		}
-		
-		return points/(BrickGame.bricks.size()-1);
+
+		return points / (BrickGame.bricks.size() - 1);
 	}
 
 	private static double points_around(int fieldID, int ID) {

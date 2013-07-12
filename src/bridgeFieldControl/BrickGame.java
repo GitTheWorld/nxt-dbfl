@@ -56,8 +56,8 @@ public class BrickGame extends Brick {
 	public int status_moves = 0;
 	public int status_foundBlock = 0;
 
-	private boolean needStart = true;
-	private boolean isEnd = false;
+	private boolean needStart;
+	private boolean isEnd;
 
 	public static void init(String[] names, int[][] coords, boolean fake)
 			throws Exception {
@@ -172,6 +172,8 @@ public class BrickGame extends Brick {
 		start();
 		Thread.sleep(300);
 		downdatePosition();
+		needStart = true;
+		isEnd = false;
 		System.out.println(name + ": the nxt is now ready to start");
 
 	}

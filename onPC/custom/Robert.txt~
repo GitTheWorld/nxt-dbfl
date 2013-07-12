@@ -1,0 +1,42 @@
+//******************//
+// AI-KONFIGURATION //
+//******************//
+
+// Bitte die Zahlenwerte anpassen um die Konfiguration
+// zu optimieren (Kommazahlen bitte mit . und nicht mit ,)
+
+
+//********************************//
+// Wegfindung und Geschwindigkeit //
+//********************************//
+
+// Motorgeschwindigkeit (0-100)
+20
+// Rotationsgeschwindigkeit (0-100)
+20
+
+// Eine Auslenkung zum wiederfinden des Weges in Grad
+7
+// Wie oft diese bevor Richtungswechsel
+4
+// Nach einem erfolglosen Versuch wie viele cm geradeaus um den Weg wiederzufinden
+4
+
+//*****************************//
+// Zeilfindung durch Bewertung //
+//*****************************//
+
+// Die folgenden Gleichungen werden bei jedem unbekannten Feld ausgeführt
+// und addiert Ergeben sie die Bewertung dieses Feldes.
+// Das Feld mit den meisten Punkten wird angesteuert.
+
+// Abstand zu mir MAL 
+-150
+// Abstand zu allen Gegnern im Schnitt MAL
+50
+
+// Umgebene Unbekannte Felder bekommen
+45
+// MAL
+0.5
+// HOCH den Abstand von diesem zum Feld selbst

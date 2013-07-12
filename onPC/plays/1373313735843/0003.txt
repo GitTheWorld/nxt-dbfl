@@ -1,9 +1,0 @@
-Siegbedingung: 
-Alle Felder aufdecken
-Verbleibend: 3/4
-
-Name: Marcel
-Position: 0 0 4
-Bewegungen: 527
-Hindernisse Entdeckt: 0
-

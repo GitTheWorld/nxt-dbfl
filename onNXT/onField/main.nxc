@@ -16,6 +16,7 @@
 
 task main()
 {
+SetMotorRegulationTime(10);
 bluetooth_init();
 sensor_init();
 display_start();
