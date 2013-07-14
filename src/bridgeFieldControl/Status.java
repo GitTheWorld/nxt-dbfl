@@ -21,10 +21,11 @@ public class Status {
 	public static void resetAll()
 	{
 	win=false;
-	stop=true;
+	stop=false;
 	pause=true;
 	Gui.stopButton.setEnabled(true);
 	Gui.stopButton.setText("Fortsetzen");
+	Gui.count = 0;
 	}
 
 	public static boolean is_win() throws FileNotFoundException {

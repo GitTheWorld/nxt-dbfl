@@ -107,6 +107,9 @@ public class GuiInit {
 				BrickGame.bricks.get(i).pos_x = coords[i][0];
 				BrickGame.bricks.get(i).pos_y = coords[i][1];
 				BrickGame.bricks.get(i).direction = coords[i][2];
+				BrickGame.bricks.get(i).status_moves = 0;
+				BrickGame.bricks.get(i).status_foundBlock = 0;
+				BrickGame.bricks.get(i).loadConfig();
 				BrickGame.bricks.get(i).startup();
 			}
 		} else {

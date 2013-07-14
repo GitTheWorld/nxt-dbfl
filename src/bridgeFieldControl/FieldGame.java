@@ -2,16 +2,16 @@ package bridgeFieldControl;
 
 import nxtPyhtonBridge.Field;
 
-public class FieldGame extends Field {
+public class FieldGame extends Field{
 
 	public static int unknown; // Felder die noch nicht geändert wurden
 	public static int objects; // Anzahl der gefunden Hindernisse
-
+	
 	public static void init_sub(int new_size_x, int new_size_y) {
 		init(new_size_x, new_size_y);
-		unknown = FieldGame.size_x * FieldGame.size_y;
+		unknown = size_x * size_y;
 	}
-
+	
 	public static boolean isFreeFromBricks(int id, int x, int y) {
 		for (int i = 0; i < BrickGame.bricks.size(); i++) {
 			if (i != id) {
@@ -23,12 +23,9 @@ public class FieldGame extends Field {
 		return true;
 	}
 
-	public static boolean isFree(int id, int x, int y) {
+	public static boolean isFree(int x, int y) {
 		
-		System.out
-		.println("main: there are rgrgrgr unknown fields");
-		
-		if (!inField(x, y) || !isFreeFromBricks(id, x, y)
+		if (!inField(x, y) || !isFreeFromBricks(-1, x, y)
 				|| theField[x][y] == 2) {
 			return false;
 		}

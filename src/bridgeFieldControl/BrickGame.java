@@ -85,10 +85,11 @@ public class BrickGame extends Brick {
 		this.direction = direction;
 		this.id = id;
 
-		if (fake) {
-			return;
-		}
+		loadConfig();
+	}
 
+	public void loadConfig() throws IOException {
+		
 		File f = new File(BrickGame.path + "/custom/" + name + ".png");
 		if (f.exists()) {
 			my_image = ImageIO.read(f);
@@ -127,9 +128,9 @@ public class BrickGame extends Brick {
 			distance_to_other_base = d_distance_to_other_base;
 			distance_to_other_multi = d_distance_to_other_multi;
 		}
-
+		
 	}
-
+	
 	private void updatePosition() {
 		if (direction == 1) {
 			pos_y--;

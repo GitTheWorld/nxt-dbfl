@@ -34,9 +34,9 @@
 30
 
 // Eine Auslenkung zum wiederfinden des Weges in Grad
-5
-// Wie oft diese bevor Richtungswechsel
 6
+// Wie oft diese bevor Richtungswechsel
+7
 // Nach einem erfolglosen Versuch wie viele cm geradeaus um den Weg wiederzufinden
 2
 

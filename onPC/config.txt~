@@ -7,9 +7,9 @@
 // Breite eines Feldes in cm (y)
 35
 // Wie lange braucht x
-1
-// zu y
 1.5
+// zu y
+1
 // Ausgabe für Auflösung Optimieren
 //x
 1920

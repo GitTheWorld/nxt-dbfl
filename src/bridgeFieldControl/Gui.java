@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import nxtPyhtonBridge.Brick;
-import nxtPyhtonBridge.Field;
 import nxtPyhtonBridge.Tools;
 import nxtPyhtonBridge.ImageWriter;
 
@@ -158,8 +157,8 @@ class Gui {
 
 	public static void genImage() throws IOException {
 
-		BufferedImage awtImage = new BufferedImage((Field.size_x + 2)
-				* scale_x, (Field.size_y + 2) * scale_y,
+		BufferedImage awtImage = new BufferedImage((FieldGame.size_x + 2)
+				* scale_x, (FieldGame.size_y + 2) * scale_y,
 				BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) awtImage.getGraphics();
 
@@ -210,7 +209,7 @@ class Gui {
 
 	public static int getRightImageNumber(int x, int y) {
 
-		if (x == 0 || y == 0 || x > Field.size_x || y > Field.size_y) {
+		if (x == 0 || y == 0 || x > FieldGame.size_x || y > FieldGame.size_y) {
 			return 1;
 		} else if (FieldGame.theField[x - 1][y - 1] == 0) {
 			return 2;
@@ -314,7 +313,7 @@ class Gui {
 		if (Status.ifWin == -1) {
 			out = out + "Alle Felder aufdecken\nVerbleibend: "
 					+ new Integer(FieldGame.unknown).toString() + "/"
-					+ new Integer(Field.size_x * Field.size_y).toString()
+					+ new Integer(FieldGame.size_x * FieldGame.size_y).toString()
 					+ "\n\n";
 		}
 		if (Status.ifWin == 0) {
@@ -347,12 +346,12 @@ class Gui {
 
 	private static void newElements() {
 
-		for (int i = 0; i < (Field.size_x + 2); i++) {
-			for (int p = 0; p < (Field.size_y + 2); p++) {
+		for (int i = 0; i < (FieldGame.size_x + 2); i++) {
+			for (int p = 0; p < (FieldGame.size_y + 2); p++) {
 				int[] neu = new int[5];
 				neu[0] = getRightImageNumber(i, p);
 				neu[1] = i * scale_x;
-				neu[2] = (Field.size_y + 1) * scale_y - scale_y * p;
+				neu[2] = (FieldGame.size_y + 1) * scale_y - scale_y * p;
 				neu[3] = scale_x;
 				neu[4] = scale_y;
 				gui.add(neu);
@@ -364,7 +363,7 @@ class Gui {
 			int[] neu1 = new int[5];
 			neu1[0] = -i;
 			neu1[1] = (BrickGame.bricks.get(i).pos_x + 1) * scale_x + scale_x / 7;
-			neu1[2] = (Field.size_y + 1) * scale_y - scale_y
+			neu1[2] = (FieldGame.size_y + 1) * scale_y - scale_y
 					* (BrickGame.bricks.get(i).pos_y + 1);
 			neu1[3] = scale_y;
 			neu1[4] = scale_y;
@@ -375,7 +374,7 @@ class Gui {
 				neu3[0] = 6;
 				neu3[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * scale_x
 						+ scale_x / 2 - scale_y / 4);
-				neu3[2] = (Field.size_y + 2) * scale_y - scale_y
+				neu3[2] = (FieldGame.size_y + 2) * scale_y - scale_y
 						* (BrickGame.bricks.get(i).pos_y + 1);
 				neu3[3] = scale_y / 2;
 				neu3[4] = scale_y / 2;
@@ -384,7 +383,7 @@ class Gui {
 				int[] neu4 = new int[5];
 				neu4[0] = 7;
 				neu4[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * scale_x - scale_y / 2);
-				neu4[2] = (Field.size_y + 1) * scale_y - scale_y
+				neu4[2] = (FieldGame.size_y + 1) * scale_y - scale_y
 						* (BrickGame.bricks.get(i).pos_y + 1) + scale_y / 4;
 				neu4[3] = scale_y / 2;
 				neu4[4] = scale_y / 2;
@@ -394,7 +393,7 @@ class Gui {
 				neu5[0] = 8;
 				neu5[1] = (int) ((BrickGame.bricks.get(i).pos_x + 1) * scale_x
 						+ scale_x / 2 - scale_y / 4);
-				neu5[2] = (Field.size_y) * scale_y - scale_y
+				neu5[2] = (FieldGame.size_y) * scale_y - scale_y
 						* (BrickGame.bricks.get(i).pos_y + 1) + scale_y / 2;
 				neu5[3] = scale_y / 2;
 				neu5[4] = scale_y / 2;
@@ -403,7 +402,7 @@ class Gui {
 				int[] neu2 = new int[5];
 				neu2[0] = 5;
 				neu2[1] = (BrickGame.bricks.get(i).pos_x + 2) * scale_x;
-				neu2[2] = (Field.size_y + 1) * scale_y - scale_y
+				neu2[2] = (FieldGame.size_y + 1) * scale_y - scale_y
 						* (BrickGame.bricks.get(i).pos_y + 1) + scale_y / 4;
 				neu2[3] = scale_y / 2;
 				neu2[4] = scale_y / 2;

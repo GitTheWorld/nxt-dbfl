@@ -2,8 +2,7 @@ package nxtPyhtonBridge;
 
 import java.util.ArrayList;
 
-public abstract class Field {
-
+public class Field {
 	// Field configuration
 	public static int size_x; // Größe der X Achse
 	public static int size_y; // Größe der Y Achse
@@ -19,8 +18,12 @@ public abstract class Field {
 	public static void init(int new_size_x, int new_size_y) {
 		size_x = new_size_x;
 		size_y = new_size_y;
-		theField = new int[Field.size_x][Field.size_y];
+		theField = new int[size_x][size_y];
 	}
+	
+	// Sollte überschrieben werden damit manche Felder unbegehbar sind
+	public static boolean isFree(int x, int y) {return true;}
+
 
 	// Mithilfe eines fertig berechneten Feldes die Richtung finden in die
 	// gegangen werden sollte um Ziel zu erreichen
@@ -34,10 +37,6 @@ public abstract class Field {
 		}
 		return direction;
 	}
-
-	// Diese Funktion sollte von einer Unterklasse überschrieben werden um
-	// bestimmte Felder als Hindernis zu kennzeichnen!!!!
-	 public static boolean isFree(int x, int y){return true;}
 
 	public static int additionDirection(int direction, int plus) {
 		direction = direction + plus;
@@ -75,7 +74,7 @@ public abstract class Field {
 
 	// Sind die Koordinaten innerhalb des Feldes
 	public static boolean inField(int x, int y) {
-		return !(x < 0 || x > Field.size_x - 1 || y < 0 || y > Field.size_y - 1);
+		return !(x < 0 || x > size_x - 1 || y < 0 || y > size_y - 1);
 	}
 
 	public static double getManhattanDistance(int x0, int y0, int x1, int y1) {
@@ -114,7 +113,7 @@ public abstract class Field {
 				listFields.add(element);
 			}
 		}
-
+		
 		for (int i = 0; i < stopOnID.length; i++) {
 			if (stopOnID[i] == theField[field.x][field.y]) {
 				field.endPoint = true;
@@ -128,6 +127,8 @@ public abstract class Field {
 			return new ArrayList<int[]>();
 		}
 		theList[x][y].inList = false;
+		
+		
 		ArrayList<int[]> newFields = new ArrayList<int[]>();
 
 		int new_x = 0;
@@ -157,28 +158,33 @@ public abstract class Field {
 				new_distance = theList[x][y].distance + one_x;
 				break;
 			}
-
+			
 			if ((inField(new_x, new_y)
 					&& isFree(new_x, new_y))
 					&& (theList[new_x][new_y] == null || theList[new_x][new_y].distance > new_distance)) {
+				
+				
 				if (theList[new_x][new_y] == null) {
-					theList[new_x][new_y] = new SubField(new_x, new_y,
-							new_direction, new_distance);
-				} else {
-					theList[new_x][new_y].distance = new_distance;
-					theList[new_x][new_y].direction = new_direction;
-				}
-
-				if (theList[new_x][new_y] == null
-						|| !theList[new_x][new_y].inList) {
+					theList[new_x][new_y] = new SubField(new_x, new_y,new_direction, new_distance);
 					int[] element = new int[2];
 					element[0] = new_x;
 					element[1] = new_y;
 					newFields.add(element);
+				
+				} else {
+					theList[new_x][new_y].distance = new_distance;
+					theList[new_x][new_y].direction = new_direction;
+					if (!theList[new_x][new_y].inList) {
+						int[] element = new int[2];
+						element[0] = new_x;
+						element[1] = new_y;
+						newFields.add(element);
+						theList[new_x][new_y].inList=true;
+					}
 				}
+
 			}
 		}
 		return newFields;
 	}
-	
 }
